@@ -1,11 +1,286 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import { Badge } from "../components/Badge";
+import {
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  PHASE_A,
+  PHASE_B,
+  WEBSITE_REQUIREMENTS,
+  COST_ESTIMATION,
+  TOTAL_PROJECT_SUMMARY,
+  TOTAL_DURATION,
+  TOTAL_COST,
+  WEEK_UNIT,
+  DURATION,
+  COST,
+  PHASE_A_NAME,
+  PHASE_B_NAME,
+  WEBSITE_REQUIREMENTS_TITLE,
+} from "../consts";
+import { formatNumber } from "../util";
+import headerImage from "../assets/header.png";
+import { getImage } from "astro:assets";
+const optimizedImage = await getImage({ src: headerImage });
+// Timeline data
+const timeline: {
+  phase: string;
+  duration?: number;
+  cost?: number;
+  phaseType: string;
+}[] = [
+  {
+    phase: "طراحی وبسایت",
+    duration: 2,
+    cost: 5000000,
+    phaseType: PHASE_A,
+  },
+  {
+    phase: "توسعه وبسایت",
+    duration: 2,
+    cost: 10000000,
+    phaseType: PHASE_A,
+  },
+  {
+    phase: "تست نهایی",
+    duration: 1,
+    cost: 0,
+    phaseType: PHASE_A,
+  },
+  {
+    phase: "آماده سازی و راه اندازی",
+    duration: 1,
+    cost: 0,
+    phaseType: PHASE_A,
+  },
+  {
+    phase: "فاز دوم...",
+    phaseType: PHASE_B,
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Hope Hearts - NGO Website">
+  <main class="min-h-screen bg-gray-50">
+    <!-- Section 1: NGO Introduction -->
+    <section
+      class="relative h-[400px] flex items-center justify-center text-white border border-gray-100 shadow-md mx-4 my-4 rounded-lg overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 w-full h-full"
+        style={`background-image: url(${optimizedImage.src}); background-size: cover; background-position: center;`}
+      >
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-9xl font-bold mb-6 text-center">
+          {SITE_TITLE}
+        </h1>
+        <p class="text-2xl text-center max-w-3xl mx-auto">
+          {SITE_DESCRIPTION}
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 2: Site Requirements -->
+    <section class="py-16 container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">
+        {WEBSITE_REQUIREMENTS_TITLE}
+      </h2>
+
+      <!-- Phase A Requirements -->
+      <div class="mb-16">
+        <div class="flex items-center justify-center mb-8">
+          <h3 class="text-2xl font-semibold ml-2">{PHASE_A_NAME}</h3>
+          <Badge msg={PHASE_A} color="blue" />
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.LANDING_PAGE.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.LANDING_PAGE.description}
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.REGISTRATION_FORMS.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.REGISTRATION_FORMS.description}
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.PAYMENT_INTEGRATION.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.PAYMENT_INTEGRATION.description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase B Requirements -->
+      <div class="mb-16">
+        <div class="flex items-center justify-center mb-8">
+          <h3 class="text-2xl font-semibold ml-2">{PHASE_B_NAME}</h3>
+          <Badge msg={PHASE_B} color="purple" />
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.FOUNDER_PORTAL.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.FOUNDER_PORTAL.description}
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.STATUS_UPDATES.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.STATUS_UPDATES.description}
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border border-gray-100 card-3d"
+          >
+            <h3 class="text-xl font-semibold mb-4">
+              {WEBSITE_REQUIREMENTS.ADVANCED_FEATURES.name}
+            </h3>
+            <p class="text-gray-600">
+              {WEBSITE_REQUIREMENTS.ADVANCED_FEATURES.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Timeline and Cost -->
+    <section class="bg-gray-100 py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12 text-center">
+          {COST_ESTIMATION}
+        </h2>
+
+        <div class="max-w-3xl mx-auto">
+          {
+            timeline.map((item, index) => (
+              <div class="flex items-center mb-8">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white ml-4">
+                  {index + 1}
+                </div>
+                <div class="ml-4 flex-1 bg-white p-4 rounded-lg shadow-sm">
+                  <h3 class="font-semibold">
+                    {item.phase}
+                    <Badge
+                      msg={item.phaseType}
+                      color={
+                        item.phaseType === "Initial Launch" ? "blue" : "purple"
+                      }
+                    />
+                  </h3>
+                  <div class="flex justify-between mt-2 text-sm text-gray-600">
+                    <span>
+                      {DURATION}: {item.duration} {WEEK_UNIT}
+                    </span>
+                    <span>
+                      {COST}: {formatNumber(item.cost ?? 0)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+
+          <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4">{TOTAL_PROJECT_SUMMARY}</h3>
+            <div class="flex justify-between text-lg">
+              <span>{TOTAL_DURATION}:</span>
+              <span class="font-semibold text-blue-600">
+                {
+                  timeline
+                    .filter((item) => !isNaN(item.duration ?? 0))
+                    .reduce((acc, item) => acc + (item.duration ?? 0), 0)
+                }
+                {WEEK_UNIT}
+              </span>
+            </div>
+            <div class="flex justify-between text-lg mt-2">
+              <span>{TOTAL_COST}:</span>
+              <span class="font-semibold text-blue-600">
+                {
+                  formatNumber(
+                    timeline
+                      .filter((item) => !isNaN(item.cost ?? 0))
+                      .reduce((acc, item) => acc + (item.cost ?? 0), 0)
+                  )
+                }
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .prototype-card {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .prototype-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px dashed #e5e7eb;
+    border-radius: 0.75rem;
+    pointer-events: none;
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    perspective: 1000px;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+
+  .card-3d:hover {
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+    box-shadow:
+      20px 20px 60px rgba(0, 0, 0, 0.05),
+      -20px -20px 60px rgba(255, 255, 255, 0.8);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-3d {
+      transition: none;
+    }
+    .card-3d:hover {
+      transform: none;
+    }
+  }
+</style>
