@@ -42,9 +42,9 @@ const timeline: {
     phaseType: PHASE_A,
   },
   {
-    phase: "تست نهایی",
+    phase: "تست نهایی و باگ‌گیری",
     duration: 1,
-    cost: 0,
+    cost: 5000000,
     phaseType: PHASE_A,
   },
   {
@@ -194,9 +194,7 @@ const timeline: {
                     {item.phase}
                     <Badge
                       msg={item.phaseType}
-                      color={
-                        item.phaseType === "Initial Launch" ? "blue" : "purple"
-                      }
+                      color={item.phaseType === PHASE_A ? "blue" : "purple"}
                     />
                   </h3>
                   <div class="flex justify-between mt-2 text-sm text-gray-600">
